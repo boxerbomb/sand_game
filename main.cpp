@@ -10,7 +10,6 @@
 
 
 
-
 const int screenWidth = 400;
 const int screenHeight = 400;
 const int screenCenterX = screenWidth/2;
@@ -64,10 +63,33 @@ int main(void)
 
         window_mouse_pos = GetMousePosition();
         Vector2 world_pos = game_window.window_pos_to_world_pos(window_mouse_pos);
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)){
+            for (const auto& pair : game_window.chunk_man.incomplete_chunks_hashmap) {
+              std::cout << "Key: " << pair.first.first <<","<<pair.first.second<< std::endl;
+            }
+        }
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+
+
+              int r = 5;
+              double PIi = 3.1415926535;
+              double i, angle, x1, y1;
+
+              for(i = 0; i < 360; i += 0.1)
+              {
+                    angle = i;
+                    x1 = r * cos(angle * PIi / 180);
+                    y1 = r * sin(angle * PIi / 180);
+                    game_window.chunk_man.SetPixel(world_pos.x + x1,world_pos.y + y1, 1);
+                    //putpixel(x + x1, y + y1, color);
+              }
+
+
+
             //printf("World Pos: %f, %f\n", world_pos.x, world_pos.y);
             //printf("Chunk ID:  %d, %d\n", (int)std::floor(float(world_pos.x)/CHUNK_SIZE), (int)std::floor(float(world_pos.y)/CHUNK_SIZE));
-            game_window.chunk_man.SetPixel(world_pos.x,world_pos.y, 1);
+            //game_window.chunk_man.SetPixel(world_pos.x,world_pos.y, 1);
             //game_window.chunk_man.GetPixel(world_pos.x,world_pos.y);
         }
 
@@ -82,7 +104,7 @@ int main(void)
         BeginDrawing();
 
             ClearBackground(SKYBLUE);
-            DrawFPS(0, 0);   
+             
 
             for (auto it = begin (game_window.chunk_man.chunks_in_view); it != end (game_window.chunk_man.chunks_in_view); ++it) {
                 int chunk_draw_size = CHUNK_SIZE * game_window.pixel_scaler;
@@ -98,7 +120,7 @@ int main(void)
                 //DrawTexture( , drawX, drawY, WHITE);
             }
 
-                
+        DrawFPS(0, 0);     
         EndDrawing();
         //----------------------------------------------------------------------------------
     }

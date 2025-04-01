@@ -44,7 +44,7 @@ void Chunk::UpdateTexture(){
 		for(int x=0; x<CHUNK_SIZE; x++){
 			int data_index = (y*CHUNK_SIZE) + x;
 			if(chunk_data[data_index] == 1){
-				DrawPixel(x, CHUNK_SIZE-y, BLACK); 
+				DrawPixel(x, CHUNK_SIZE-y-1, BLACK); 
 			}
 		}
 	}
